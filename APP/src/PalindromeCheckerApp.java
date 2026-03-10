@@ -1,38 +1,35 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 public class PalindromeCheckerApp {
 
-    public static boolean isPalindrome(String str) {
-        // Convert string to character array
-        char[] arr = str.toCharArray();
-
-        int start = 0;
-        int end = arr.length - 1;
-
-        // Two-pointer comparison
-        while (start < end) {
-            if (arr[start] != arr[end]) {
-                return false;
-            }
-            start++;
-            end--;
-        }
-
-        return true;
-    }
-
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+
+        Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter a string: ");
-        String input = sc.nextLine();
+        String input = scanner.nextLine();
 
-        if (isPalindrome(input)) {
-            System.out.println("The string is a Palindrome.");
-        } else {
-            System.out.println("The string is NOT a Palindrome.");
+        Stack<Character> stack = new Stack<>();
+
+        // 1. Push characters into stack
+        for (int i = 0; i < input.length(); i++) {
+            stack.push(input.charAt(i));
         }
 
-        sc.close();
+        // 2. Pop characters and build reversed string
+        String reversed = "";
+        while (!stack.isEmpty()) {
+            reversed += stack.pop();
+        }
+
+        // 3. Compare and print result
+        if (input.equals(reversed)) {
+            System.out.println("Result: It is a Palindrome ✅");
+        } else {
+            System.out.println("Result: Not a Palindrome ❌");
+        }
+
+        scanner.close();
     }
 }
